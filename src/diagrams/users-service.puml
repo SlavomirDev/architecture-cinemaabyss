@@ -1,0 +1,21 @@
+@startuml
+!include <C4/C4_Component>
+
+Component(user_service, "Сервис пользователей")
+Component(profile_handler, "Profile Handler")
+Component(favorites_handler, "Favorites Handler")
+Component(preferences_handler, "Preferences Handler")
+
+user_service --> profile_handler
+user_service --> favorites_handler
+user_service --> preferences_handler
+
+note right of user_service
+**Ответственность:**
+- Управление профилем
+- Избранное
+- История просмотров
+
+**База данных:** PostgreSQL
+end note
+@enduml

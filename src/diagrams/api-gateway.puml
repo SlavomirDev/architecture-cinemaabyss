@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Component>
+
+Component(api_gateway, "API Gateway")
+Component(router, "Маршрутизатор")
+Component(auth_middleware, "Auth Middleware", "JWT")
+
+api_gateway --> router
+router --> auth_middleware
+
+note right of api_gateway
+- Единая точка входа
+- Маршрутизация запросов
+- Аутентификация
+
+end note
+@enduml

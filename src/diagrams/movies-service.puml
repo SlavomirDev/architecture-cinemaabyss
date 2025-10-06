@@ -1,0 +1,31 @@
+@startuml
+!include <C4/C4_Component>
+
+Component(movies_service, "Сервис фильмов")
+Component(movie_catalog, "Каталог фильмов")
+Component(metadata_manager, "Менеджер метаданных")
+Component(video_streamer, "Видео стример")
+Component(search_handler, "Поисковый обработчик")
+Component(quality_selector, "Селектор качества")
+Component(event_tracker, "Трекер событий")
+
+movies_service --> movie_catalog
+movies_service --> metadata_manager
+movies_service --> video_streamer
+movies_service --> search_handler
+video_streamer --> quality_selector
+video_streamer --> event_tracker
+
+note right of movies_service
+**Ответственность:**
+- Управление каталогом фильмов
+- Метаданные (жанры, актеры, описания)
+- Стриминг видео контента
+- Поиск и фильтрация
+
+**База данных:** PostgreSQL
+**Поиск:** Elasticsearch
+**События:** Kafka (video-events topic)
+**Интеграции:** CDN
+end note
+@enduml
