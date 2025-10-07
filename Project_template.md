@@ -7,6 +7,9 @@
 Добавьте ссылку на файл в этот шаблон
 [ссылка на файл](ссылка)
 
+Все диграммы в папке diagrams
+[Container](src/diagrams/container.puml)
+
 # Задание 2
 
 ### 1. Proxy
@@ -58,6 +61,10 @@
 
 Необходимые тесты для проверки этого API вызываются при запуске npm run test:local из папки tests/postman 
 Приложите скриншот тестов и скриншот состояния топиков Kafka из UI http://localhost:8090 
+
+[Topic](images/topic.jpg)
+
+[Test](images/test.jpg)
 
 # Задание 3
 
@@ -272,9 +279,14 @@ cat .docker/config.json | base64
   Часть тестов с health-чек упадет, но создание событий отработает.
   Откройте логи event-service и сделайте скриншот обработки событий
 
+Логи: [Events](images/kubernetes_events.jpg)
+
 #### Шаг 3
 Добавьте сюда скриншота вывода при вызове https://cinemaabyss.example.com/api/movies и  скриншот вывода event-service после вызова тестов.
 
+Логи: [Events](images/kubernetes_events.jpg)
+
+Вывод: [Movies](images/kubernetes_movies.jpg)
 
 # Задание 4
 Для простоты дальнейшего обновления и развертывания вам как архитектуру необходимо так же реализовать helm-чарты для прокси-сервиса и проверить работу 
@@ -349,6 +361,12 @@ minikube tunnel
 Потом вызовите 
 https://cinemaabyss.example.com/api/movies
 и приложите скриншот развертывания helm и вывода https://cinemaabyss.example.com/api/movies
+
+Вывод: [Movies](images/helm_movies.jpg)
+
+Helm:
+- [Deploy](images/helm_deploy.jpg)
+- [Pods](images/helm_pods.jpg)
 
 ## Удаляем все
 
