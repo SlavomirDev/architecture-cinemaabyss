@@ -1,0 +1,25 @@
+@startuml
+!include <C4/C4_Component>
+
+Component(catalog_service, "Сервис каталога")
+Component(movie_handler, "Movie Handler")
+Component(genre_handler, "Genre Handler")
+Component(search_engine, "Search Engine")
+Component(metadata_enricher, "Metadata Enricher")
+
+catalog_service --> movie_handler
+catalog_service --> genre_handler
+catalog_service --> search_engine
+movie_handler --> metadata_enricher
+
+note right of catalog_service
+**Ответственность:**
+- Управление метаданными фильмов
+- Поиск по каталогу
+- Обогащение метаданных
+- Управление жанрами и актерами
+
+**База данных:** PostgreSQL
+**Поиск:** Elasticsearch
+end note
+@enduml

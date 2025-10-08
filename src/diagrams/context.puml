@@ -1,0 +1,50 @@
+@startuml
+!include <C4/C4_Context>
+
+title Диаграмма контекста
+
+Person(user, "Пользователь", "Смотрит фильмы и сериалы, управляет подпиской")
+Person(admin, "Администратор", "Управляет контентом и аналитикой")
+Person(dev_ops, "DevOps инженер", "Развертывает и поддерживает систему")
+
+System(kino_bezdna, "Онлайн-кинотеатр 'Кинобездна', 'Агрегатор стримингового контента с единой подпиской")
+
+System_Ext(mobile_app, "Мобильное приложение", "iOS/Android")
+System_Ext(web_app, "Веб-приложение", "Браузерная версия сервиса")
+System_Ext(tv_app, "TV приложение", "Приложение для Smart TV")
+
+System_Ext(payment_systems, "Платежные системы", "Сторонние системы")
+System_Ext(loyalty_programs, "Программы лояльности", "Партнерские системы лояльности")
+System_Ext(marketplaces, "Маркетплейсы", "Партнерские торговые площадки")
+System_Ext(recommendation_engine, "Рекомендательная система", "Внешняя AI система рекомендаций")
+System_Ext(content_providers, "Провайдеры контента", "Стриминговые сервисы и открытые источники")
+System_Ext(cdn, "CDN", "Сеть доставки контента")
+
+Rel(user, mobile_app, "Смотрит фильмы через")
+Rel(user, web_app, "Использует")
+Rel(user, tv_app, "Смотрит на ТВ через")
+
+Rel(mobile_app, kino_bezdna, "Получает контент через API")
+Rel(web_app, kino_bezdna, "Взаимодействует через")
+Rel(tv_app, kino_bezdna, "Стримит видео через")
+
+Rel(kino_bezdna, payment_systems, "Обрабатывает платежи через")
+Rel(kino_bezdna, loyalty_programs, "Интегрируется с")
+Rel(kino_bezdna, marketplaces, "Обменивается данными с")
+Rel(kino_bezdna, recommendation_engine, "Получает рекомендации из")
+Rel(kino_bezdna, content_providers, "Агрегирует контент из")
+Rel(kino_bezdna, cdn, "Доставляет видео через")
+
+Rel(admin, kino_bezdna, "Управляет контентом и аналитикой")
+Rel(dev_ops, kino_bezdna, "Развертывает и поддерживает")
+
+Note right of kino_bezdna
+  **Основные функции:**
+  - Агрегация контента из разных источников
+  - Единая система подписки
+  - Персональные рекомендации
+  - Управление платежами
+  - Интеграция с партнерами
+end note
+
+@enduml

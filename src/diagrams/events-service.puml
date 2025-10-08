@@ -1,0 +1,29 @@
+@startuml
+!include <C4/C4_Component>
+
+Component(analytics_service, "Сервис событий")
+Component(event_consumer, "Event Consumer")
+Component(stats_calculator, "Stats Calculator")
+Component(report_generator, "Report Generator")
+Component(trends_analyzer, "Trends Analyzer")
+
+analytics_service --> event_consumer
+analytics_service --> stats_calculator
+analytics_service --> report_generator
+analytics_service --> trends_analyzer
+
+note right of analytics_service
+**Ответственность:**
+- Сбор пользовательских событий
+- Аналитика просмотров
+- Генерация отчетов
+- Выявление трендов
+
+**Потребляет события из Kafka:**
+- user-actions
+- video-events  
+- search-events
+
+**Хранилище:** Elasticsearch, PostgreSQL
+end note
+@enduml

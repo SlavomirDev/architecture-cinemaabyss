@@ -1,0 +1,24 @@
+@startuml
+!include <C4/C4_Component>
+
+Component(auth_service, "Сервис аутентификации")
+Component(login_handler, "Login Handler")
+Component(jwt_manager, "JWT Manager")
+Component(session_manager, "Session Manager")
+Component(password_hasher, "Password Hasher")
+
+auth_service --> login_handler
+login_handler --> jwt_manager
+login_handler --> session_manager
+login_handler --> password_hasher
+
+note right of auth_service
+**Ответственность:**
+- Аутентификация пользователей
+- Выдача JWT токенов
+- Управление сессиями
+- Валидация токенов
+
+**База данных:** PostgreSQL (users table)
+end note
+@enduml

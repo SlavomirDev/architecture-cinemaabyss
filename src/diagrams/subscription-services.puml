@@ -1,0 +1,25 @@
+@startuml
+!include <C4/C4_Component>
+
+Component(subscription_service, "Сервис подписок")
+Component(billing_handler, "Billing Handler")
+Component(payment_processor, "Payment Processor")
+Component(subscription_manager, "Subscription Manager")
+Component(discount_engine, "Discount Engine")
+
+subscription_service --> billing_handler
+billing_handler --> payment_processor
+billing_handler --> subscription_manager
+subscription_manager --> discount_engine
+
+note right of subscription_service
+**Ответственность:**
+- Управление подписками
+- Обработка платежей
+- Применение скидок
+- Биллинг и инвойсы
+
+**Интеграции:** Платежные системы
+**База данных:** PostgreSQL
+end note
+@enduml

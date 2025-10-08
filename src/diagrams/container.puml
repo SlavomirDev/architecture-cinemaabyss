@@ -1,0 +1,64 @@
+@startuml
+!include <C4/C4_Container>
+
+title Диаграмма контейнеров
+
+Person(user, "Пользователь", "Смотрит фильмы через различные устройства")
+
+System_Boundary(system, "Кинобездна") {
+    Container(api_gateway, "API Gateway", "Единая точка входа, маршрутизация, аутентификация")
+    
+    Container(auth_service, "Сервис аутентификации", "Управление доступом, JWT токены")
+    Container(user_service, "Сервис пользователей", "Профили, настройки, избранное")
+    Container(subscription_service, "Сервис подписок", "Подписки, биллинг, скидки")
+    Container(movies_service, "Сервис фильмов", "Метаданные фильмов, жанры, актеры, cтриминг видео")
+    Container(analytics_service, "Сервис аналитики", "Сбор статистики, события просмотров")
+    
+    ContainerDb(postgresql, "PostgreSQL", "СУБД", "Основное хранилище данных")
+    ContainerDb(elasticsearch, "Elasticsearch", "Поиск", "Поиск и аналитика просмотров")
+    
+    ContainerQueue(kafka, "Kafka", "Брокер сообщений", "Асинхронные события")
+}
+
+System_Ext(mobile_app, "Мобильное приложение", "iOS/Android")
+System_Ext(web_app, "Веб-приложение", "React")
+System_Ext(tv_app, "TV приложение", "Smart TV")
+
+System_Ext(payment, "Платежные системы", "Эквайринг")
+System_Ext(content, "Провайдеры контента", "Стриминговые сервисы")
+System_Ext(cdn, "CDN", "Сеть доставки контента")
+
+mobile_app --> api_gateway : "REST API"
+web_app --> api_gateway : "REST API"
+tv_app --> api_gateway : "REST API"
+
+api_gateway --> auth_service : "REST API\nHTTP"
+api_gateway --> user_service : "REST API\nHTTP"
+api_gateway --> subscription_service : "REST API\nHTTP"
+api_gateway --> movies_service : "REST API\nHTTP"
+
+movies_service --> analytics_service : "REST API\nHTTP"
+
+auth_service --> postgresql : "SQL"
+user_service --> postgresql : "SQL"
+subscription_service --> postgresql : "SQL"
+movies_service --> postgresql : "SQL"
+
+analytics_service --> elasticsearch : "Индексация"
+api_gateway --> elasticsearch : "Поиск фильмов"
+
+movies_service --> kafka : "События просмотров"
+user_service --> kafka : "Действия пользователя"
+kafka --> analytics_service : "Потребление событий"
+
+subscription_service --> payment : "Платежи"
+movies_service --> content : "Получение контента"
+movies_service --> cdn : "Стриминг видео"
+
+note right of api_gateway
+  **Функции:**
+  - Маршрутизация
+  - Аутентификация
+end note
+
+@enduml
